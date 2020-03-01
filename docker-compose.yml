@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  twitter:
+    build:
+      context: ./twitter-kafka-producer
+      dockerfile: Dockerfile
+    container_name: "twitter"
+    ports:
+      - "8082:8080"

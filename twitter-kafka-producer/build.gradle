@@ -1,0 +1,40 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
+
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.github.carlosasrc.samplekafkaelasticsearch.twittermicroservice'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+def hystrixVersion = "1.5.12"
+def twitterVersion = "4.0.4"
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile group: 'org.twitter4j', name: 'twitter4j-core', version: twitterVersion
+    compile group: 'com.netflix.hystrix', name: 'hystrix-core', version: hystrixVersion
+    compile group: 'com.netflix.hystrix', name: 'hystrix-metrics-event-stream', version: hystrixVersion
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    compile group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    testCompile('org.projectlombok:lombok:1.18.10')
+
+
+}
