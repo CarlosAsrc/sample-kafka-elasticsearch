@@ -13,7 +13,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-group = 'com.github.carlosasrc.samplekafkaelasticsearch.twittermicroservice'
+group = 'com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 

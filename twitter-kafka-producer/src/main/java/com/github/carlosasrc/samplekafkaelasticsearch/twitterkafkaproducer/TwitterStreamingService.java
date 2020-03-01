@@ -1,4 +1,4 @@
-package com.github.carlosasrc.samplekafkaelasticsearch.twittermicroservice;
+package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer;
 
 import com.twitter.hbc.httpclient.BasicClient;
 import lombok.AllArgsConstructor;
