@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.BlockingQueue;
@@ -23,17 +25,20 @@ public class TwitterStreamingService {
 
     private String msg;
 
+    @EventListener(ApplicationReadyEvent.class)
     public void listen() throws InterruptedException {
         try {
             client.connect();
-            if (client.isDone()) {
-                log.info("Client connection closed unexpectedly: " + client.getExitEvent().getMessage());
-            }
-            msg = queue.poll(5, TimeUnit.SECONDS);
-            if (msg == null) {
-                log.info("Did not receive a message in 5 seconds");
-            } else {
-                log.info(msg);
+            while(true){
+                if (client.isDone()) {
+                    log.info("Client connection closed unexpectedly: " + client.getExitEvent().getMessage());
+                }
+                msg = queue.poll(5, TimeUnit.SECONDS);
+                if (msg == null) {
+                    log.info("Did not receive a message in 5 seconds");
+                } else {
+                    log.info(msg);
+                }
             }
 
         } catch (Exception error) {
