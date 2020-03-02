@@ -22,12 +22,10 @@ repositories {
 }
 
 def hystrixVersion = "1.5.12"
-def twitterVersion = "4.0.4"
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compile group: 'org.twitter4j', name: 'twitter4j-core', version: twitterVersion
     compile group: 'com.netflix.hystrix', name: 'hystrix-core', version: hystrixVersion
     compile group: 'com.netflix.hystrix', name: 'hystrix-metrics-event-stream', version: hystrixVersion
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
@@ -35,6 +33,4 @@ dependencies {
     compileOnly('org.projectlombok:lombok:1.18.10')
     annotationProcessor('org.projectlombok:lombok:1.18.10')
     testCompile('org.projectlombok:lombok:1.18.10')
-
-
 }

@@ -1,4 +1,4 @@
-package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer;
+package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.client;
 
 import com.twitter.hbc.httpclient.BasicClient;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-public class TwitterStreamingService {
+public class TwitterStreamClient {
 
     @Autowired
     private BasicClient client;

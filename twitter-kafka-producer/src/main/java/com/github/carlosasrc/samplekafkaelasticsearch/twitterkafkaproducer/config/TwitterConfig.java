@@ -1,4 +1,4 @@
-package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer;
+package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.config;
 
 import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
