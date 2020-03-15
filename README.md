@@ -1,21 +1,21 @@
 # sample-kafka-elasticsearch
 
-##Purpose
+## Purpose
 A sample project with a kafka producer who fetches data from twitter and sends it to a topic consumed by an application that puts data into elasticsearch.
 
-##Running
+## Running
 
-##Architecture General Description
+## Architecture General Description
 
-###Twitter Kafka Producer
+### Twitter Kafka Producer
 
-###Elasticsearch Kafka Consumer
+### Elasticsearch Kafka Consumer
 
-###Kafka Setup
+### Kafka Setup
 
-###ElasticSearch Setup
+### ElasticSearch Setup
 
-##Tools and References
+## Tools and References
 
 - [Apache Kafka for Beginners Course](https://www.udemy.com/course/apache-kafka/) 
 
