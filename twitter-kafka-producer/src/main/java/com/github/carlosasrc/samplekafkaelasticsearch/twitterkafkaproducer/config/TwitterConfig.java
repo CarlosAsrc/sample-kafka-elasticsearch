@@ -53,7 +53,7 @@ public class TwitterConfig {
     private StreamingEndpoint getEndpoint() {
         StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
         endpoint.stallWarnings(false);
-        endpoint.trackTerms(Lists.newArrayList("avião"));
+        endpoint.trackTerms(Lists.newArrayList("kafka", "software", "devops", "streaming"));
         return endpoint;
     }
 }

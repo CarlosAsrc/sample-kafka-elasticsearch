@@ -26,13 +26,10 @@ public class TwitterStreamClient {
     private String msg;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void listen() throws InterruptedException {
+    public void listen() {
         try {
             client.connect();
-            while(true){
-                if (client.isDone()) {
-                    log.info("Client connection closed unexpectedly: " + client.getExitEvent().getMessage());
-                }
+            while(!client.isDone()){
                 msg = queue.poll(5, TimeUnit.SECONDS);
                 if (msg == null) {
                     log.info("Did not receive a message in 5 seconds");
@@ -40,9 +37,8 @@ public class TwitterStreamClient {
                     log.info(msg);
                 }
             }
-
-        } catch (Exception error) {
-            error.printStackTrace();
+        } catch (InterruptedException error) {
+            log.info("Client connection closed unexpectedly: " + client.getExitEvent().getMessage());
         } finally {
             client.stop();
             log.info("The client read %d messages!\n", client.getStatsTracker().getNumMessages());
