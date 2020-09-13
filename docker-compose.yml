@@ -5,46 +5,27 @@ services:
 #    build:
 #      context: ./twitter-kafka-producer
 #      dockerfile: Dockerfile
-#    container_name: "twitter"
+#    container_name: "twitter-kafka-producer"
 #    ports:
-#      - "8082:8080"
+#      - "8080:8080"
 #    networks:
 #      - streaming
 
   zookeeper:
-    image: wurstmeister/zookeeper:3.4.6
-    ports:
-      - "2181:2181"
-    networks:
-      - streaming
+    image: zookeeper:3.4.9
+    hostname: zookeeper
+    ports: ['2181:2181']
 
   kafka:
-    image: wurstmeister/kafka:2.11-2.0.0
-    depends_on:
-      - zookeeper
-    ports:
-      - "9092:9092"
+    image: confluentinc/cp-kafka:5.3.1
+    hostname: kafka
+    ports: ['9092:9092']
     environment:
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    networks:
-      - streaming
-
-  kafka-setup:
-    image: confluentinc/cp-kafka:5.1.1
-    hostname: kafka-setup
-    container_name: kafka-setup
-    depends_on:
-      - kafka
-    command: "bash -c 'echo Waiting for Kafka to be ready... && \
-                       cub kafka-ready -b broker:9092 1 20 && \
-                       kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic tweets'"
-    environment:
-      KAFKA_BROKER_ID: ignored
-      KAFKA_ZOOKEEPER_CONNECT: ignored
-    networks:
-      - streaming
-
-networks:
-  streaming:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:9093,OUTSITE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,OUTSITE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CREATE_TOPICS: "tweets:1:1"
+    depends_on: ['zookeeper']

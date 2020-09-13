@@ -1,10 +1,9 @@
 package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.client;
 
+import com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.messaging.producer.TwitterKafkaProducer;
 import com.twitter.hbc.httpclient.BasicClient;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -12,36 +11,34 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-@Component
-@AllArgsConstructor
-@NoArgsConstructor
 @Slf4j
+@Component
+@RequiredArgsConstructor
 public class TwitterStreamClient {
 
-    @Autowired
-    private BasicClient client;
-    @Autowired
-    private BlockingQueue<String> queue;
+    private final BasicClient client;
+    private final TwitterKafkaProducer twitterKafkaProducer;
+    private final BlockingQueue<String> queue;
 
-    private String msg;
+    private String message;
 
     @EventListener(ApplicationReadyEvent.class)
     public void listen() {
         try {
             client.connect();
             while(!client.isDone()){
-                msg = queue.poll(5, TimeUnit.SECONDS);
-                if (msg == null) {
+                message = queue.poll(5, TimeUnit.SECONDS);
+                if (message == null) {
                     log.info("Did not receive a message in 5 seconds");
                 } else {
-                    log.info(msg);
+                    twitterKafkaProducer.publish(message);
                 }
             }
         } catch (InterruptedException error) {
             log.info("Client connection closed unexpectedly: " + client.getExitEvent().getMessage());
         } finally {
             client.stop();
-            log.info("The client read %d messages!\n", client.getStatsTracker().getNumMessages());
+            log.info("The client read {} messages!\n", client.getStatsTracker().getNumMessages());
         }
     }
 }
