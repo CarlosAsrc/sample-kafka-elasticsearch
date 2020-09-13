@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+#  twitter:
+#    build:
+#      context: ./twitter-kafka-producer
+#      dockerfile: Dockerfile
+#    container_name: "twitter-kafka-producer"
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - streaming
+
+  zookeeper:
+    image: zookeeper:3.4.9
+    hostname: zookeeper
+    ports: ['2181:2181']
+
+  kafka:
+    image: confluentinc/cp-kafka:5.3.1
+    hostname: kafka
+    ports: ['9092:9092']
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:9093,OUTSITE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,OUTSITE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CREATE_TOPICS: "tweets:1:1"
+    depends_on: ['zookeeper']
