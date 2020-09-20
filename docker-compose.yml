@@ -1,15 +1,15 @@
 version: '3.3'
 
 services:
-#  twitter:
-#    build:
-#      context: ./twitter-kafka-producer
-#      dockerfile: Dockerfile
-#    container_name: "twitter-kafka-producer"
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - streaming
+  twitter:
+    build:
+      context: ./twitter-kafka-producer
+      dockerfile: Dockerfile
+    container_name: "twitter-kafka-producer"
+    ports:
+      - "8080:8080"
+    depends_on: ['kafka']
+
 
   zookeeper:
     image: zookeeper:3.4.9

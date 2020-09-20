@@ -21,13 +21,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 @PropertySource("classpath:application.yml")
 public class TwitterConfig {
 
-    @Value("${twitter.consumer-key}")
+    @Value("${application.twitter.consumer-key}")
     private String consumerKey;
-    @Value("${twitter.consumer-secret}")
+    @Value("${application.twitter.consumer-secret}")
     private String consumerSecret;
-    @Value("${twitter.access-token}")
+    @Value("${application.twitter.access-token}")
     private String accessToken;
-    @Value("${twitter.access-token-secret}")
+    @Value("${application.twitter.access-token-secret}")
     private String accessTokenSecret;
 
     @Bean
