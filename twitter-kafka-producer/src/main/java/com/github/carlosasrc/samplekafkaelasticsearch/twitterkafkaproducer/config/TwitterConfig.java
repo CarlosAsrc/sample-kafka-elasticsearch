@@ -1,6 +1,5 @@
 package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.config;
 
-import com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.property.TwitterConfigurationProperties;
 import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Constants;
@@ -10,7 +9,6 @@ import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.BasicClient;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +18,17 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @Configuration
-@AllArgsConstructor
+@PropertySource("classpath:application.yml")
 public class TwitterConfig {
 
-    private final TwitterConfigurationProperties twitterConfigurationProperties;
+    @Value("${twitter.consumer-key}")
+    private String consumerKey;
+    @Value("${twitter.consumer-secret}")
+    private String consumerSecret;
+    @Value("${twitter.access-token}")
+    private String accessToken;
+    @Value("${twitter.access-token-secret}")
+    private String accessTokenSecret;
 
     @Bean
     public BasicClient client() {
@@ -42,12 +47,7 @@ public class TwitterConfig {
     }
 
     private Authentication getAuth() {
-        return new OAuth1(
-                twitterConfigurationProperties.getConsumerKey(),
-                twitterConfigurationProperties.getConsumerKey(),
-                twitterConfigurationProperties.getAccessToken(),
-                twitterConfigurationProperties.getAccessTokenSecret()
-        );
+        return new OAuth1(consumerKey, consumerSecret, accessToken, accessTokenSecret);
     }
 
     private StreamingEndpoint getEndpoint() {
