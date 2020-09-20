@@ -20,17 +20,16 @@ repositories {
     mavenCentral()
 }
 
-def hystrixVersion = "1.5.12"
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
     implementation 'org.springframework.kafka:spring-kafka:2.5.5.RELEASE'
-    implementation group: 'com.netflix.hystrix', name: 'hystrix-core', version: hystrixVersion
-    implementation group: 'com.netflix.hystrix', name: 'hystrix-metrics-event-stream', version: hystrixVersion
-    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     implementation group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
-    compileOnly('org.projectlombok:lombok:1.18.10')
+
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     annotationProcessor('org.projectlombok:lombok:1.18.10')
     testImplementation('org.projectlombok:lombok:1.18.10')
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
