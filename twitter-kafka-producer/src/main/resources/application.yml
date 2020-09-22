@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: file-processor-service
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+
+
+application:
+  kafka:
+    topic-name: tweets
+
+  twitter:
+    consumer-key: ${CONSUMER_KEY}
+    consumer-secret: ${CONSUMER_SECRET}
+    access-token: ${ACCESS_TOKEN}
+    access-token-secret: ${ACCESS_TOKEN_SECRET}
+
