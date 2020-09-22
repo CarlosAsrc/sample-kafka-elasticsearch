@@ -11,8 +11,11 @@ application:
     topic-name: tweets
 
   twitter:
-    consumer-key: ${CONSUMER_KEY}
-    consumer-secret: ${CONSUMER_SECRET}
-    access-token: ${ACCESS_TOKEN}
-    access-token-secret: ${ACCESS_TOKEN_SECRET}
+    auth:
+      consumer-key: ${CONSUMER_KEY}
+      consumer-secret: ${CONSUMER_SECRET}
+      access-token: ${ACCESS_TOKEN}
+      access-token-secret: ${ACCESS_TOKEN_SECRET}
+    streaming:
+      track-terms: kafka, software, devops, streaming
 

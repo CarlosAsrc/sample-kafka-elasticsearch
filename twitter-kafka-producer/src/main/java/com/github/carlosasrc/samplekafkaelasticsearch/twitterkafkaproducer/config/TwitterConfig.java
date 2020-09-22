@@ -21,14 +21,17 @@ import java.util.concurrent.LinkedBlockingQueue;
 @PropertySource("classpath:application.yml")
 public class TwitterConfig {
 
-    @Value("${application.twitter.consumer-key}")
+    @Value("${application.twitter.auth.consumer-key}")
     private String consumerKey;
-    @Value("${application.twitter.consumer-secret}")
+    @Value("${application.twitter.auth.consumer-secret}")
     private String consumerSecret;
-    @Value("${application.twitter.access-token}")
+    @Value("${application.twitter.auth.access-token}")
     private String accessToken;
-    @Value("${application.twitter.access-token-secret}")
+    @Value("${application.twitter.auth.access-token-secret}")
     private String accessTokenSecret;
+    @Value("${application.twitter.streaming.track-terms}")
+    private String [] trackTerms;
+
 
     @Bean
     public BasicClient client() {
@@ -53,7 +56,7 @@ public class TwitterConfig {
     private StreamingEndpoint getEndpoint() {
         StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
         endpoint.stallWarnings(false);
-        endpoint.trackTerms(Lists.newArrayList("kafka", "software", "devops", "streaming"));
+        endpoint.trackTerms(Lists.newArrayList(trackTerms));
         return endpoint;
     }
 }
