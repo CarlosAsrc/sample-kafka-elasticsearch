@@ -1,7 +1,8 @@
 version: '3.3'
 
 services:
-  twitter:
+
+  twitter-kafka-producer:
     build:
       context: ./twitter-kafka-producer
       dockerfile: Dockerfile
@@ -9,6 +10,15 @@ services:
     ports:
       - "8080:8080"
     depends_on: ['kafka']
+
+  elasticsearch-kafka-consumer:
+    build:
+      context: ./elasticsearch-kafka-consumer
+      dockerfile: Dockerfile
+    container_name: "elasticsearch-kafka-consumer"
+    ports:
+      - "8081:8080"
+    depends_on: [ 'kafka' ]
 
 
   zookeeper:
