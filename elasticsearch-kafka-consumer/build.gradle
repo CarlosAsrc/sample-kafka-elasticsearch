@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.github.carlosasrc.samplekafkaelasticsearch'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '14'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.kafka:spring-kafka:2.5.5.RELEASE'
+
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    testImplementation('org.projectlombok:lombok:1.18.10')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
