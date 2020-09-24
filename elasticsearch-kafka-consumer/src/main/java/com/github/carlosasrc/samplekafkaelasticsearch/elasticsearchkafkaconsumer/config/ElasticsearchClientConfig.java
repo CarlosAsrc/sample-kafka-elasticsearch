@@ -28,12 +28,12 @@ public class ElasticsearchClientConfig {
     private int port;
 
 
-    @Bean
+    @Bean(destroyMethod = "close")
     public RestHighLevelClient restHighLevelClient() {
         return new RestHighLevelClient(getRestClientBuilder());
     }
 
-    public RestClientBuilder getRestClientBuilder() {
+    private RestClientBuilder getRestClientBuilder() {
         return RestClient.builder(new HttpHost(hostname, port, "https"))
                 .setHttpClientConfigCallback(getHttpClientConfigCallback());
     }

@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     container_name: "elasticsearch-kafka-consumer"
     ports:
-      - "8081:8080"
+      - "8081:8081"
     depends_on: [ 'kafka' ]
 
 

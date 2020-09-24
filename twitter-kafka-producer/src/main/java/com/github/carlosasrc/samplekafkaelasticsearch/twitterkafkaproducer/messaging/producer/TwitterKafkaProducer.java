@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:application.yml")
 public class TwitterKafkaProducer {
 
-    @Value(value = "${application.kafka.topic-name}")
+    @Value(value = "${application.kafka.topic.tweets}")
     private String topicName;
 
     private final KafkaTemplate<String, String> template;
@@ -21,7 +21,7 @@ public class TwitterKafkaProducer {
     public void publish(String message) {
         try {
             template.send(topicName, message);
-            log.info("Message sent to topic {}:", message);
+            log.info("Message sent to topic {} : {}:", topicName, message);
         } catch (Exception e) {
             log.error("Error sending message to topic {}:", topicName, e);
         }

@@ -19,3 +19,7 @@ application:
     server:
       hostname: sample-kafka-elastic-1447195342.us-east-1.bonsaisearch.net
       port: 443
+      index: tweets
+
+server:
+  port: 8081

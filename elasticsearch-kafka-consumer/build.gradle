@@ -26,6 +26,8 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka:2.5.5.RELEASE'
 
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.9.1'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.9.1'
+    implementation 'org.elasticsearch:elasticsearch:7.9.1'
 
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     annotationProcessor('org.projectlombok:lombok:1.18.10')
