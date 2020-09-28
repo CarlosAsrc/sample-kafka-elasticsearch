@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: elasticsearch-kafka-consumer
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: elasticsearch
+
+
+application:
+  kafka:
+    topic:
+      tweets: tweets
+
+  elasticsearch:
+    auth:
+      access-key: ${ACCESS-KEY}
+      access-token: ${ACCESS-TOKEN}
+    server:
+      hostname: sample-kafka-elastic-1447195342.us-east-1.bonsaisearch.net
+      port: 443
+      index: tweets
+
+server:
+  port: 8081

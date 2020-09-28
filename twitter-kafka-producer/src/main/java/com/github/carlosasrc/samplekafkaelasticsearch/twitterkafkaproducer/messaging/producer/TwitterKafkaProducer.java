@@ -1,25 +1,29 @@
 package com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.messaging.producer;
 
-import com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer.property.KafkaConfigurationProperties;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
+@PropertySource("classpath:application.yml")
 public class TwitterKafkaProducer {
 
+    @Value(value = "${application.kafka.topic.tweets}")
+    private String topicName;
+
     private final KafkaTemplate<String, String> template;
-    private final KafkaConfigurationProperties kafkaConfigurationProperties;
 
     public void publish(String message) {
         try {
-            template.send(kafkaConfigurationProperties.getTopicName(), message);
-            log.info("Message sent to topic {}:", message);
+            template.send(topicName, message);
+            log.info("Message sent to topic {} : {}:", topicName, message);
         } catch (Exception e) {
-            log.error("Error sending message to topic {}:", kafkaConfigurationProperties.getTopicName(), e);
+            log.error("Error sending message to topic {}:", topicName, e);
         }
     }
 }

@@ -12,7 +12,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-group = 'com.github.carlosasrc.samplekafkaelasticsearch.twitterkafkaproducer'
+group = 'com.github.carlosasrc.samplekafkaelasticsearch'
 sourceCompatibility = '14'
 targetCompatibility = '14'
 
@@ -20,16 +20,24 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation 'org.springframework.kafka:spring-kafka:2.5.5.RELEASE'
-    implementation group: 'com.twitter', name: 'hbc-core', version: '2.2.0'
+
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.9.1'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.9.1'
+    implementation 'org.elasticsearch:elasticsearch:7.9.1'
 
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     annotationProcessor('org.projectlombok:lombok:1.18.10')
     testImplementation('org.projectlombok:lombok:1.18.10')
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
 }

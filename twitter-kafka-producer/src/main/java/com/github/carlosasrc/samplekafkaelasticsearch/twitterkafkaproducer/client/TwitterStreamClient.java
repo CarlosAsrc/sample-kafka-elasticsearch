@@ -26,7 +26,7 @@ public class TwitterStreamClient {
     public void listen() {
         try {
             client.connect();
-            while(!client.isDone()){
+            while(!client.isDone()) {
                 message = queue.poll(5, TimeUnit.SECONDS);
                 if (message == null) {
                     log.info("Did not receive a message in 5 seconds");

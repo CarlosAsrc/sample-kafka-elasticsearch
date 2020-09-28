@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: twitter-kafka-producer
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+
+
+application:
+  kafka:
+    topic:
+      tweets: tweets
+
+  twitter:
+    auth:
+      consumer-key: ${CONSUMER_KEY}
+      consumer-secret: ${CONSUMER_SECRET}
+      access-token: ${ACCESS_TOKEN}
+      access-token-secret: ${ACCESS_TOKEN_SECRET}
+    streaming:
+      track-terms: kafka, software, devops, streaming
+
